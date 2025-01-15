@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--sidebar-width: 15rem;
+}
+
 body {
-	@apply text-white text-lg bg-bg;
+	@apply text-white text-base bg-bg;
 	font-family: var(--font-suse);
 }

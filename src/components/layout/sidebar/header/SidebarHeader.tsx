@@ -1,15 +1,29 @@
 import { Menu, SquarePlay } from 'lucide-react'
+import Link from 'next/link'
 
-export function SidebarHeader() {
+import { COLORS } from '@/constants/colors.constants'
+
+import { PUBLIC_PAGE } from '@/config/public-page.config'
+
+export function SidebarHeader({ toggleSidebar }: { toggleSidebar: () => void }) {
 	return (
-		<div>
-			<button>
+		<div className='flex items-center gap-5 mb-12'>
+			<button
+				className='opacity-85 hover:opacity-100 transition-opacity'
+				onClick={toggleSidebar}
+			>
 				<Menu />
 			</button>
-			<span>
-				<SquarePlay />
-				<span>MY Video</span>
-			</span>
+			<Link
+				href={PUBLIC_PAGE.HOME}
+				className='flex items-center gap-1.5'
+			>
+				<SquarePlay
+					color={COLORS.primary}
+					size={29}
+				/>
+				<span className='font-medium text-xl'>MY Video</span>
+			</Link>
 		</div>
 	)
 }
