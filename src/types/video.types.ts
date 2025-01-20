@@ -2,8 +2,8 @@ import type { IChannel } from './channel.types'
 
 export interface IVideo {
 	id: string
+	publicId: string
 	title: string
-	slug: string
 	description: string
 	thumbnailUrl: string
 	videoFileName: string
@@ -11,4 +11,8 @@ export interface IVideo {
 	isPublic: boolean
 	channel: IChannel
 	createdAt: string
+}
+
+export interface IVideos {
+	videos: IVideo[]
 }
