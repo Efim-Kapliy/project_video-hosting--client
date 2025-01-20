@@ -25,7 +25,7 @@ export function transformViews(views: number): string {
 		if (views >= currentViews.value) {
 			formattedViews = (views / currentViews.value).toFixed(1)
 			formattedViews = formattedViews.endsWith('.0') ? formattedViews.slice(0, -2) : formattedViews
-			return formattedViews
+			return `${formattedViews} ${currentViews.designation}`
 		}
 	}
 
