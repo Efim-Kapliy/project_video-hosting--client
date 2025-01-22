@@ -1,45 +1,23 @@
-@keyframes hideSidebar {
-	from {
-		transform: translateX(0);
-		width: var(--sidebar-width);
-	}
-
-	to {
-		@apply w-[3.9rem];
-	}
-}
-
-@keyframes showSidebar {
-	from {
-		@apply w-[3.9rem];
-	}
-	to {
-		transform: translateX(0);
-		width: var(--sidebar-width);
-	}
-}
-
 .hidedSidebar {
 	> aside {
-		animation: hideSidebar 0.35s forwards;
+		width: 3.8rem;
 		flex-grow: 0;
 
-		> nav {
-			> div:first-child {
-				@apply transition-opacity;
-				opacity: 0;
-			}
+		> nav > div:first-child {
+			opacity: 0;
+			transition: opacity 0.35s;
 		}
 	}
 
 	> div {
-		@apply w-full;
+		width: 100%;
 	}
 }
 
-.showedSidebar {
-	> aside {
-		animation: showSidebar 0.3s forwards;
-		width: var(--sidebar-width);
-	}
+.showedSidebar > aside {
+	width: var(--sidebar-width);
+}
+
+.initialSidebar > aside {
+	transition: width 0.35s;
 }
