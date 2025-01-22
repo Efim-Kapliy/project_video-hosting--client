@@ -22,7 +22,10 @@ const suse = SUSE({
 })
 
 export const metadata: Metadata = {
-	title: 'MY Video',
+	title: {
+		absolute: 'MY Video',
+		template: `%s | MY Video`
+	},
 	description: 'The best video viewing app'
 }
 
