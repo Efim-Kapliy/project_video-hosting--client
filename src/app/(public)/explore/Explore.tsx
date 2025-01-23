@@ -26,7 +26,7 @@ export function Explore() {
 						className='h-36 rounded-md'
 					/>
 				) : (
-					data?.videos.length &&
+					!!data?.videos.length &&
 					data.videos.map(video => (
 						<VideoItem
 							key={video.id}

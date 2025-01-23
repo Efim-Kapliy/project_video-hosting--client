@@ -31,9 +31,14 @@ export default async function Home() {
 	return (
 		<section>
 			<section>
-				<Heading Icon={Flame}>Trending</Heading>
+				<Heading
+					isH1
+					Icon={Flame}
+				>
+					Trending
+				</Heading>
 				<div className='grid grid-cols-6 gap-6 mb-8'>
-					{trendingVideos.length &&
+					{!!trendingVideos.length &&
 						trendingVideos.map(video => (
 							<VideoItem
 								key={video.id}
