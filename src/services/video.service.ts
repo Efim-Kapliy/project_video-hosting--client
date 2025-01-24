@@ -1,13 +1,13 @@
-import axios from 'axios'
+import { axiosClassic } from '@/api/axios'
 
 import type { IVideo, IVideos } from '@/types/video.types'
 
 class VideoService {
-	private readonly BASE_URL = 'http://localhost:4200/api/videos'
+	private readonly _BASE_URL = '/videos'
 
 	public getAll = async (searchTerm?: string | null) => {
-		return axios.get<IVideos>(
-			`${this.BASE_URL}`,
+		return axiosClassic.get<IVideos>(
+			`${this._BASE_URL}`,
 			searchTerm
 				? {
 						params: {
@@ -18,12 +18,16 @@ class VideoService {
 		)
 	}
 
-	public readonly getTrendingVideos = async () => {
-		return axios.get<IVideo[]>(`${this.BASE_URL}/trending`)
+	public readonly getExploreVideos = async () => {
+		return axiosClassic.get<IVideos>(`${this._BASE_URL}/explore`)
 	}
 
-	public readonly getExploreVideos = async () => {
-		return axios.get<IVideos>(`${this.BASE_URL}/explore`)
+	public readonly getTrendingVideos = async () => {
+		return axiosClassic.get<IVideo[]>(`${this._BASE_URL}/trending`)
+	}
+
+	public readonly getVideoGames = async () => {
+		return axiosClassic.get<IVideos>(`${this._BASE_URL}/games`)
 	}
 }
 
