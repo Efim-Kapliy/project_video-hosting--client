@@ -30,24 +30,25 @@ export default async function Home() {
 
 	return (
 		<section>
-			<section>
-				<Heading
-					isH1
-					Icon={Flame}
-				>
-					Trending
-				</Heading>
-				<div className='grid grid-cols-6 gap-6 mb-8'>
-					{!!trendingVideos.length &&
-						trendingVideos.map(video => (
+			{!!trendingVideos.length && (
+				<section>
+					<Heading
+						isH1
+						Icon={Flame}
+					>
+						Trending
+					</Heading>
+					<div className='grid-6-cols mb-8'>
+						{trendingVideos.map(video => (
 							<VideoItem
 								key={video.id}
 								video={video}
 								Icon={Flame}
 							/>
 						))}
-				</div>
-			</section>
+					</div>
+				</section>
+			)}
 			<Explore />
 		</section>
 	)

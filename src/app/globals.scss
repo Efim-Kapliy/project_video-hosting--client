@@ -10,3 +10,9 @@ body {
 	@apply text-white text-base bg-bg;
 	font-family: var(--font-suse);
 }
+
+@layer utilities {
+	.grid-6-cols {
+		@apply grid grid-cols-6 gap-6;
+	}
+}
