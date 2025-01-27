@@ -38,18 +38,27 @@ export function VideoItem({ video, Icon }: Props) {
 						className='rounded-md'
 					/>
 				</Link>
-				<Link
-					href={PUBLIC_PAGE.VIDEO(video.channel.slug)}
+				<m.div
 					className='absolute left-1.5 bottom-2'
+					whileHover={{
+						scale: 1.11
+					}}
+					transition={{
+						type: 'spring',
+						stiffness: 500,
+						damping: 35
+					}}
 				>
-					<Image
-						src={video.channel.avatarUrl}
-						width={35}
-						height={35}
-						alt={video.channel.name}
-						className='rounded-full shadow'
-					/>
-				</Link>
+					<Link href={PUBLIC_PAGE.VIDEO(video.channel.slug)}>
+						<Image
+							src={video.channel.avatarUrl}
+							width={35}
+							height={35}
+							alt={video.channel.name}
+							className='rounded-full shadow'
+						/>
+					</Link>
+				</m.div>
 			</div>
 			<div className='mt-1.5 flex item-center justify-between'>
 				<div className='flex items-center gap-0.5'>
