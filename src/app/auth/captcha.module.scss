@@ -1,0 +1,10 @@
+.recaptcha {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	iframe {
+		filter: invert(1) grayscale(1);
+		transform: scale(0.9);
+	}
+}
