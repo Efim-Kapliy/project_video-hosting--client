@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { type TypedUseSelectorHook, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
 import { authSlice } from './auth.slice'
@@ -14,5 +14,5 @@ export type TRootState = ReturnType<typeof store.getState>
 
 export type TAppDispatch = typeof store.dispatch
 
-export const useAppDispatch = () => useDispatch<TAppDispatch>
-export const useAppSelector: TypedUseSelectorHook<TRootState> = useSelector
+export const useAppDispatch = useDispatch.withTypes<TAppDispatch>()
+export const useAppSelector = useSelector.withTypes<TRootState>()
