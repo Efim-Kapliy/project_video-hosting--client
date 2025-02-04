@@ -8,10 +8,7 @@ import toast from 'react-hot-toast'
 
 import { PUBLIC_PAGE } from '@/config/public-page.config'
 
-import { clearAuthData } from '@/store/auth.slice'
-
 import { authService } from '@/services/auth.service'
-import { useAppDispatch } from '@/store'
 import type { IAuthData, IAuthForm } from '@/types/auth-form.types'
 
 export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAuthForm>) {
@@ -26,9 +23,7 @@ export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAut
 		mutationFn: (data: IAuthData) => authService.main(type, data, recaptchaRef.current?.getValue())
 	})
 
-	const dispatch = useAppDispatch()
-
-	const onSubmit: SubmitHandler<IAuthForm> = data => {
+	const onSubmit: SubmitHandler<IAuthForm> = ({ email, password }) => {
 		const token = recaptchaRef.current?.getValue()
 
 		if (!token) {
@@ -38,7 +33,7 @@ export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAut
 			return
 		}
 
-		toast.promise(mutateAsync(data), {
+		toast.promise(mutateAsync({ email, password }), {
 			loading: 'Loading...',
 			success: () => {
 				startTransition(() => {
@@ -50,7 +45,6 @@ export function useAuthForm(type: 'login' | 'register', reset: UseFormReset<IAut
 			},
 			error: (e: Error) => {
 				if (axios.isAxiosError(e)) {
-					dispatch(clearAuthData())
 					return e.response?.data?.message
 				}
 			}
