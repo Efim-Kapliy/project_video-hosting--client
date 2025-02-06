@@ -32,6 +32,19 @@ class AuthService {
 		return response
 	}
 
+	async initializeAuth() {
+		const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN)
+		if (accessToken) return
+
+		try {
+			await this.getNewTokens()
+		} catch (error) {
+			store.dispatch(clearAuthData())
+
+			console.error(error)
+		}
+	}
+
 	// CLIENT
 	async getNewTokens() {
 		const response = await axiosClassic.post<IAuthResponse>(`${this._BASE_URL}/access-token`)
@@ -63,8 +76,7 @@ class AuthService {
 		const response = await axiosClassic.post<boolean>(`${this._BASE_URL}/logout`)
 
 		if (response.data) {
-			this._removeFromStorage()
-			store.dispatch(clearAuthData())
+			this.removeFromStorage()
 		}
 		return response
 	}
@@ -73,12 +85,14 @@ class AuthService {
 		Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
 			domain: 'localhost',
 			sameSite: 'strict',
-			expires: 1
+			expires: 1 / 24,
+			secure: true
 		})
 	}
 
-	private _removeFromStorage() {
+	removeFromStorage() {
 		Cookies.remove(EnumTokens.ACCESS_TOKEN)
+		store.dispatch(clearAuthData())
 	}
 }
 
