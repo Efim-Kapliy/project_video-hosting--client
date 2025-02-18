@@ -12,8 +12,6 @@ export function Logout() {
 	const router = useRouter()
 	const pathname = usePathname()
 
-	console.log(pathname)
-
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['logout'],
 		mutationFn: () => authService.logout(),
