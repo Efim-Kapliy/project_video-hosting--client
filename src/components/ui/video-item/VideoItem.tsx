@@ -54,7 +54,7 @@ export function VideoItem({ video, Icon }: Props) {
 							src={video.channel.avatarUrl}
 							width={35}
 							height={35}
-							alt={video.channel.name}
+							alt={video?.channel?.user?.name || ''}
 							className='rounded-full shadow'
 						/>
 					</Link>
@@ -87,7 +87,7 @@ export function VideoItem({ video, Icon }: Props) {
 					href={PUBLIC_PAGE.VIDEO(video.channel.slug)}
 					className='flex items-center gap-1'
 				>
-					<span className='text-gray-400 text-sm'>{video.channel.name}</span>
+					<span className='text-gray-400 text-sm'>{video?.channel?.user?.name}</span>
 					{video.channel.isVerified && (
 						<span>
 							<BadgeCheck
