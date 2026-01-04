@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MY Video - Видеохостинг платформа
 
-## Getting Started
+## Общая информация
 
-First, run the development server:
+**MY Video** - это современное веб-приложение для просмотра видео, построенное на передовом технологическом стеке. Проект представляет собой клиентскую часть видеохостинга с двумя основными разделами: публичный интерфейс для просмотра видео и студию для управления контентом.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Технологический стек
+
+### Frontend
+- **Next.js 15.1.4** - фреймворк для React с SSR/SSG
+- **React 19** - библиотека для создания пользовательских интерфейсов
+- **TypeScript** - типизированный JavaScript
+- **Tailwind CSS** - CSS-фреймворк для стилизации
+- **Redux Toolkit** - управление состоянием приложения
+- **TanStack Query (React Query)** - управление асинхронными данными
+- **React Hook Form** - управление формами
+- **React Google reCAPTCHA** - защита от ботов
+- **Lucide React** - иконки
+- **Motion** - анимации
+
+### Backend (не включен в данный анализ)
+- API URL: `http://localhost:4200/api`
+
+## Архитектура проекта
+
+### Структура каталогов
+
+```
+src/
+├── app/                    # App Router (Next.js 13+)
+│   ├── (public)/          # Публичные маршруты
+│   ├── auth/              # Авторизация
+│   └── studio/            # Студия (личный кабинет)
+├── components/            # Компоненты
+│   └── layout/           # Макеты приложения
+├── services/             # Сервисы для API
+├── types/                # TypeScript типы
+├── store/                # Redux хранилище
+├── hooks/                # Кастомные хуки
+├── config/               # Конфигурационные файлы
+├── constants/            # Константы
+├── utils/                # Утилиты
+├── api/                  # API конфигурация
+└── server-actions/       # Server Actions (Next.js)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Основные компоненты
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Макет приложения (`src/components/layout/`)
+- **Layout.tsx** - основной макет с боковой панелью
+- **Sidebar** - боковое меню с навигацией
+- **Content** - контентная область
+- **Header** - верхняя панель с поиском и профилем
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Публичные страницы (`src/app/(public)/`)
+- **Главная страница** - трендовые видео и эксплор
+- **Каналы** - просмотр видео канала
+- **Поиск** - поиск по видео
+- **Тренды** - популярные видео
+- **Видеоигры** - категория видеоигр
 
-## Learn More
+#### Студия (`src/app/studio/`)
+- **Главная студии** - заглушка
+- **Настройки** - редактирование профиля и канала
+- **Загрузка видео** - заглушка
 
-To learn more about Next.js, take a look at the following resources:
+#### Авторизация (`src/app/auth/`)
+- **Форма авторизации** с reCAPTCHA
+- Поддержка входа и регистрации
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Система типов (`src/types/`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Основные типы данных:
+- **IUser** - пользователь
+- **IChannel** - канал пользователя
+- **IVideo** - видео
+- **IAuthData** - данные авторизации
+- **IWatchHistory** - история просмотров
 
-## Deploy on Vercel
+### Сервисы (`src/services/`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **auth.service.ts** - авторизация и аутентификация
+- **video.service.ts** - работа с видео
+- **channel.service.ts** - работа с каналами
+- **user.service.ts** - работа с пользователями
+- **file.service.ts** - загрузка файлов
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Управление состоянием
+
+#### Redux Store (`src/store/`)
+- **auth.slice.ts** - состояние авторизации
+- Хранение токенов, данных пользователя
+- Интеграция с Cookie для persist данных
+
+#### React Query
+- Кэширование данных
+- Автоматическая подгрузка данных
+- Обработка ошибок
+
+### Middleware и защита
+
+#### Server Actions (`src/server-actions/`)
+- **protect-login.middleware.ts** - защита страниц авторизации
+- **protect-studio.middleware.ts** - защита студии
+- Проверка JWT токенов
+- Автоматическое обновление токенов
+
+## Особенности архитектуры
+
+### Двухуровневая защита
+- **Client-side**: Redux + React Query
+- **Server-side**: Middleware + Server Actions
+
+### Аутентификация
+- JWT токены (access + refresh)
+- Хранение в cookies
+- Автоматическое обновление токенов
+
+### Загрузка файлов
+- Поддержка загрузки аватаров и баннеров
+- Интеграция с облачным хранилищем
+
+### SEO оптимизация
+- Server-side rendering
+- Meta теги для страниц
+- Open Graph поддержка
+
+## Конфигурация
+
+### Next.js конфигурация
+- SSR включен
+- Rewrites для загрузки файлов
+- Turbopack для разработки
+
+### Стили
+- Tailwind CSS с кастомными цветами
+- SCSS для компонентов
+- Responsive design
+
+## Пути навигации
+
+### Публичные маршруты
+- `/` - Главная
+- `/c/:slug` - Канал
+- `/s?term=` - Поиск
+- `/trending` - Тренды
+- `/video-games` - Игры
+- `/auth` - Авторизация
+
+### Приватные маршруты (Студия)
+- `/studio` - Студия
+- `/studio/settings` - Настройки
+- `/studio/upload` - Загрузка видео
+
+## Запуск проекта
+
+1. Установите зависимости:
+   ```bash
+   bun install
+   ```
+
+2. Запустите development сервер:
+   ```bash
+   bun dev
+   ```
+
+3. Откройте [http://localhost:3000](http://localhost:3000) в браузере
+
+## Заключение
+
+Проект "MY Video" демонстрирует современный подход к разработке веб-приложений с использованием Next.js 13+, TypeScript и Redux. Архитектура проекта хорошо организована, с четким разделением ответственности между слоями. Реализована многоуровневая система безопасности, поддержка SSR для SEO и современный UX с анимациями и отзывчивым дизайном.
